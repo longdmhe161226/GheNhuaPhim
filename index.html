@@ -45,7 +45,7 @@ const container = document.getElementById("episodes");
 
 async function loadData(){
 
-    const res = await fetch("https://media.hth4nh.eu.org/ophim/detail/truc-ngoc");
+    const res = await fetch("https://api.allorigins.win/raw?url=https://media.hth4nh.eu.org/ophim/detail/truc-ngoc");
     const data = await res.json();
 
     const streams = data.sources[0].contents[0].streams;
@@ -86,3 +86,4 @@ loadData();
 
 </body>
 </html>
+
