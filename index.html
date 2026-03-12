@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Danh sách tập</title>
+
+<style>
+body{
+    font-family: Arial;
+}
+
+#episodes{
+    display: grid;
+    grid-template-columns: repeat(5, 80px);
+    gap:10px;
+}
+
+.episode{
+    padding:10px;
+    background:#eee;
+    border-radius:6px;
+    text-align:center;
+    cursor:pointer;
+}
+
+.episode:hover{
+    background:#ccc;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Danh sách tập</h2>
+
+<div id="episodes"></div>
+
+<script>
+
+// JSON response (rút gọn demo)
+const data = {
+  "tags": [
+    {
+      "text": "Phim Bộ",
+      "type": "radio",
+      "url": "https://media.hth4nh.eu.org/ophim/sort/tab/phim-bo"
+    },
+    {
+      "text": "Phim Thuyết Minh",
+      "type": "radio",
+      "url": "https://media.hth4nh.eu.org/ophim/sort/tab/phim-thuyet-minh"
+    }
+  ],
+  "sources": [
+    {
+      "id": "truc-ngoc--0",
+      "name": "Vietsub #1",
+      "contents": [
+        {
+          "id": "truc-ngoc--0",
+          "name": "",
+          "grid_number": 3,
+          "streams": [
+            {
+              "id": "truc-ngoc--0-0",
+              "name": "1",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--0-0-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260306/26604_270a7713/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--0-0-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260306/26604_270a7713/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/270a7713a318a6e28a801dbb4a2bfd25"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--0-1",
+              "name": "2",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--0-1-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260306/26605_d29359fd/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--0-1-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260306/26605_d29359fd/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/d29359fdfc4921dc7f4d642eba549705"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--0-2",
+              "name": "3",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--0-2-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260306/26606_dd4378fa/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--0-2-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260306/26606_dd4378fa/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/dd4378fa6376a85a4cafc940fbc289f0"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--0-3",
+              "name": "4",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--0-3-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260306/26607_45d8a341/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--0-3-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260306/26607_45d8a341/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/45d8a341ba3989a90c6606580eac0fa4"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--0-4",
+              "name": "5",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--0-4-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260306/26608_c5b14c33/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--0-4-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260306/26608_c5b14c33/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/c5b14c33657bdcb8ca7c7898d0d11e6c"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--0-5",
+              "name": "6",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--0-5-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260307/26716_4815717d/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--0-5-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260307/26716_4815717d/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/4815717d5a93704f7d9f0e23dd3d78fc"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--0-6",
+              "name": "7",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--0-6-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260307/26717_d73421d9/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--0-6-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260307/26717_d73421d9/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/d73421d9fcf0ac43f1aebb2bb6ab3909"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--0-7",
+              "name": "8",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--0-7-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260308/26760_73bf740e/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--0-7-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260308/26760_73bf740e/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/73bf740ed941e13e76e67049a5165b91"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--0-8",
+              "name": "9",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--0-8-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260308/26761_9978e9e9/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--0-8-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260308/26761_9978e9e9/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/9978e9e9fb93fb29863fa07903d01010"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--0-9",
+              "name": "10",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--0-9-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260309/26800_9092e7be/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--0-9-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260309/26800_9092e7be/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/9092e7bee2d622e7c6c5ef8476928917"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--0-10",
+              "name": "11",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--0-10-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260309/26801_004dbbb7/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--0-10-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260309/26801_004dbbb7/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/004dbbb73c0e3933d191fa195500d018"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--0-11",
+              "name": "12",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--0-11-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260310/26898_9c66d12f/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--0-11-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260310/26898_9c66d12f/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/9c66d12fccadcf1568788ceb7bc8ae15"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--0-12",
+              "name": "13",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--0-12-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260310/26899_6e07fd1c/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--0-12-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260310/26899_6e07fd1c/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/6e07fd1c581ecdec5680ccea9a8addd6"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--0-13",
+              "name": "14",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--0-13-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260311/26984_6c04175d/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--0-13-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260311/26984_6c04175d/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/6c04175de4297fbf49921a487dc1a2f6"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--0-14",
+              "name": "15",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--0-14-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260311/26985_4fd16173/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--0-14-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260311/26985_4fd16173/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/4fd16173b1e193820f5998c6b884a438"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "truc-ngoc--1",
+      "name": "Thuyết Minh #1",
+      "contents": [
+        {
+          "id": "truc-ngoc--1",
+          "name": "",
+          "grid_number": 3,
+          "streams": [
+            {
+              "id": "truc-ngoc--1-0",
+              "name": "1",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--1-0-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260307/26656_0a979f02/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--1-0-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260307/26656_0a979f02/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/0a979f021ded11b1db1a9468d6a65826"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--1-1",
+              "name": "2",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--1-1-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260307/26657_389c96d5/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--1-1-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260307/26657_389c96d5/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/389c96d539ed67bd670f0a32d9765469"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--1-2",
+              "name": "3",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--1-2-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260307/26658_4ed7fa9f/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--1-2-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260307/26658_4ed7fa9f/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/4ed7fa9f84644b49d65a4a784f49bd8a"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--1-3",
+              "name": "4",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--1-3-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260307/26659_715b66f8/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--1-3-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260307/26659_715b66f8/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/715b66f8b96f226789e740c8c9b21153"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--1-4",
+              "name": "5",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--1-4-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260307/26660_faa346cc/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--1-4-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260307/26660_faa346cc/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/faa346cce8568de3e8822f5857d6b918"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--1-5",
+              "name": "6",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--1-5-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260307/26718_e704bb84/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--1-5-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260307/26718_e704bb84/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/e704bb84211a84111e4c138a17e68edb"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--1-6",
+              "name": "7",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--1-6-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260307/26719_58977814/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--1-6-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260307/26719_58977814/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/58977814981a9bab5e4495ab61d13efa"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--1-7",
+              "name": "8",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--1-7-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260308/26766_7cb32e6b/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--1-7-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260308/26766_7cb32e6b/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/7cb32e6bdc272551176478f3e90288bd"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--1-8",
+              "name": "9",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--1-8-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260308/26767_76d25c33/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--1-8-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260308/26767_76d25c33/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/76d25c33226e66a6de95a7e2557ebe5e"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--1-9",
+              "name": "10",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--1-9-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260309/26803_1b3ecca1/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--1-9-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260309/26803_1b3ecca1/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/1b3ecca102b57d735ac385a9c03fd15b"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--1-10",
+              "name": "11",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--1-10-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260309/26804_22f266a9/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--1-10-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260309/26804_22f266a9/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/22f266a9987440c2fcba09a845b638b1"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--1-11",
+              "name": "12",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--1-11-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260310/26895_1af4e757/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--1-11-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260310/26895_1af4e757/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/1af4e757d34a34d89c040d16ec352003"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "truc-ngoc--1-12",
+              "name": "13",
+              "stream_links": [
+                {
+                  "id": "truc-ngoc--1-12-noads",
+                  "name": "No Ads",
+                  "type": "hls",
+                  "default": true,
+                  "url": "https://media.hth4nh.eu.org/oph/90/20260310/26896_93d7899e/index.m3u8"
+                },
+                {
+                  "id": "truc-ngoc--1-12-default",
+                  "name": "Mặc Định",
+                  "type": "hls",
+                  "default": false,
+                  "url": "https://vip.opstream90.com/20260310/26896_93d7899e/index.m3u8",
+                  "request_headers": [
+                    {
+                      "key": "User-Agent",
+                      "value": "MonPlayer"
+                    },
+                    {
+                      "key": "Referer",
+                      "value": "https://vip.opstream90.com/share/93d7899e2e4a39939729da1f02052c89"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "subtitle": "Vietsub + Thuyết Minh"
+}; 
+
+const container = document.getElementById("episodes");
+
+// lấy source Vietsub
+const streams = data.sources[0].contents[0].streams;
+
+// tạo list tập
+streams.forEach(ep => {
+
+    const defaultStream = ep.stream_links.find(s => !s.default);
+
+    const div = document.createElement("div");
+    div.className = "episode";
+    div.innerText = "Tập " + ep.name;
+
+div.onclick = () => {
+    play(defaultStream.url)
+};
+
+    container.appendChild(div);
+
+});
+
+</script>
+<video id="player" controls width="800"></video>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<script>
+
+function play(url){
+
+    const video = document.getElementById("player");
+
+    if(Hls.isSupported()){
+        const hls = new Hls();
+        hls.loadSource(url);
+        hls.attachMedia(video);
+    }
+}
+
+</script>
+</body>
+</html>

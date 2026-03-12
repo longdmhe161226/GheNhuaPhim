@@ -1,0 +1,32 @@
+<svg width="360" height="200" viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <linearGradient id="plugGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#555"></stop>
+      <stop offset="100%" stop-color="#2f2f2f"></stop>
+    </linearGradient>
+
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.3"></feDropShadow>
+    </filter>
+  </defs>
+
+  <path d="M10 110 C80 110, 100 110, 150 110" stroke="#222" stroke-width="8" fill="none" stroke-linecap="round"></path>
+
+  <rect x="110" y="75" width="80" height="70" rx="12" fill="url(#plugGrad)" filter="url(#shadow)"></rect>
+
+  <rect x="190" y="95" width="10" height="14" rx="2" fill="#666"></rect>
+  <rect x="190" y="115" width="10" height="14" rx="2" fill="#666"></rect>
+
+  <rect x="225" y="60" width="120" height="100" rx="18" fill="#f4f4f4" stroke="#bbb" stroke-width="2" filter="url(#shadow)"></rect>
+
+  <rect x="275" y="90" width="12" height="17" rx="3" fill="#666"></rect>
+  <rect x="275" y="112" width="12" height="17" rx="3" fill="#666"></rect>
+
+  
+
+  <circle cx="320" cy="140" r="6" fill="#4CAF50">
+    <animate attributeName="opacity" values="1;0.4;1" dur="1.1s" repeatCount="indefinite"></animate>
+  </circle>
+
+</svg>
