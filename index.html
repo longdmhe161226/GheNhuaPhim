@@ -59,7 +59,7 @@ async function loadData(){
         div.innerText = "Tập " + ep.name;
 
         div.onclick = () => {
-            play(defaultStream.url);
+            play(defaultStream);
         };
 
         container.appendChild(div);
@@ -86,5 +86,6 @@ loadData();
 
 </body>
 </html>
+
 
 
