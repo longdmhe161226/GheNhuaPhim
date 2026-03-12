@@ -45,14 +45,14 @@ const container = document.getElementById("episodes");
 
 async function loadData(){
 
-    const res = await fetch("https://api.allorigins.win/raw?url=https://media.hth4nh.eu.org/ophim/detail/truc-ngoc");
+    const res = await fetch("https://ophim1.com/v1/api/phim/truc-ngoc");
     const data = await res.json();
 
-    const streams = data.sources[0].contents[0].streams;
+    const streams = data.data.item.episodes[0].server_data;
 
     streams.forEach(ep => {
 
-        const defaultStream = ep.stream_links.find(s => !s.default);
+        const defaultStream = ep.link_embed;
 
         const div = document.createElement("div");
         div.className = "episode";
@@ -86,4 +86,5 @@ loadData();
 
 </body>
 </html>
+
 
