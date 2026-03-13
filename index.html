@@ -66,30 +66,32 @@ async function loadData(){
 
     });
     
-        const div = document.createElement("div");
+        const div1 = document.createElement("div");
         div.className = "episode";
         div.innerText = "VTV1";
 
         div.onclick = () => {
             playHls('https://live-a.fptplay53.net/live/media/VTV1HD/live_hls_avc/index.m3u8');
         };
+        container.appendChild(div1);
 
-        const div = document.createElement("div");
+        const div2 = document.createElement("div");
         div.className = "episode";
         div.innerText = "VTV2";
 
         div.onclick = () => {
             playHls('https://live-a.fptplay53.net/live/media/VTV2HD/live_hls_avc/index.m3u8');
         };
+        container.appendChild(div2);
     
-        const div = document.createElement("div");
+        const div3 = document.createElement("div");
         div.className = "episode";
         div.innerText = "VTV3";
 
         div.onclick = () => {
             playHls('https://live-a.fptplay53.net/live/media/VTV3HD/live_hls_avc/index.m3u8');
         };
-        container.appendChild(div);
+        container.appendChild(div3);
 }
 
 
@@ -116,6 +118,7 @@ loadData();
 
 </body>
 </html>
+
 
 
 
