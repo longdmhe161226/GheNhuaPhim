@@ -71,9 +71,17 @@ async function loadData(){
         div.innerText = "VTV1";
 
         div.onclick = () => {
-            playHls('https://toiyeuvietnam.dpdns.org/TuyetDoiKhongKinhDoanh/vtv1-hd/KenhCoBan.m3u8');
+            playHls('https://live-a.fptplay53.net/live/media/VTV1HD/live_hls_avc/index.m3u8');
         };
 
+        const div = document.createElement("div");
+        div.className = "episode";
+        div.innerText = "VTV2";
+
+        div.onclick = () => {
+            playHls('https://live-a.fptplay53.net/live/media/VTV2HD/live_hls_avc/index.m3u8');
+        };
+    
         const div = document.createElement("div");
         div.className = "episode";
         div.innerText = "VTV3";
@@ -108,6 +116,7 @@ loadData();
 
 </body>
 </html>
+
 
 
 
