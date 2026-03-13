@@ -35,12 +35,14 @@ body{
 
 <div id="episodes"></div>
 <iframe id="player" width="800" height="450" allowfullscreen></iframe>
-<!-- <video id="player" controls width="800"></video> -->
+<video id="player2" controls width="800"></video>
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
 
+$('#player').hide();
+$('#player2').hide();
 const container = document.getElementById("episodes");
 
 async function loadData(){
@@ -66,35 +68,39 @@ async function loadData(){
 
     });
     
-        const div = document.createElement("div");
-        div.className = "episode";
-        div.innerText = "VTV1";
+        const div1 = document.createElement("div");
+        div1.className = "episode";
+        div1.innerText = "VTV1";
 
-        div.onclick = () => {
+        div1.onclick = () => {
             playHls('https://live-a.fptplay53.net/live/media/VTV1HD/live_hls_avc/index.m3u8');
         };
-        container.appendChild(div);
+        container.appendChild(div1);
 
-        div.className = "episode";
-        div.innerText = "VTV2";
+        const div2 = document.createElement("div");
+        div2.className = "episode";
+        div2.innerText = "VTV2";
 
-        div.onclick = () => {
+        div2.onclick = () => {
             playHls('https://live-a.fptplay53.net/live/media/VTV2HD/live_hls_avc/index.m3u8');
         };
-        container.appendChild(div);
+        container.appendChild(div2);
     
-        div.className = "episode";
-        div.innerText = "VTV3";
+        const div3 = document.createElement("div");
+        div3.className = "episode";
+        div3.innerText = "VTV3";
 
-        div.onclick = () => {
+        div3.onclick = () => {
             playHls('https://live-a.fptplay53.net/live/media/VTV3HD/live_hls_avc/index.m3u8');
         };
-        container.appendChild(div);
+        container.appendChild(div3);
 }
 
 
 function playHls(url){
-    const video = document.getElementById("player");
+	$('#player').hide();
+	$('#player2').show();
+    const video = document.getElementById("player2");
     if(Hls.isSupported()){
         const hls = new Hls();
         hls.loadSource(url);
@@ -105,7 +111,8 @@ function playHls(url){
 }
     
 function play(url){
-
+	$('#player').show();
+	$('#player2').hide();
     const video = document.getElementById("player");
     video.src= url;
 }
