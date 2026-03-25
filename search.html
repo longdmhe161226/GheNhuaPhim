@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tìm kiếm - GheNhuaPhim</title>
+    <meta name="description" content="Tìm kiếm phim online chất lượng cao miễn phí.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Search Page Specific Styles */
+        .search-page-hero {
+            padding-top: calc(var(--nav-height) + 40px);
+            padding-bottom: 30px;
+            padding-left: 4%;
+            padding-right: 4%;
+            background: linear-gradient(to bottom, rgba(229, 9, 20, 0.08) 0%, var(--bg-primary) 100%);
+        }
+
+        .search-page-title {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .search-page-subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .search-page-bar {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            max-width: 600px;
+        }
+
+        .search-page-input {
+            flex: 1;
+            padding: 14px 20px;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .search-page-input:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .search-page-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-page-submit {
+            padding: 14px 28px;
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .search-page-submit:hover {
+            transform: scale(1.03);
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* Search Results Grid */
+        .search-results {
+            padding: 0 4% 60px;
+        }
+
+        .search-results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .search-results-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .results-count {
+            color: var(--text-muted);
+            font-weight: 400;
+            font-size: 0.9rem;
+        }
+
+        .search-results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .search-results-grid .movie-card {
+            flex: none;
+            width: 100%;
+        }
+
+        .search-results-grid .card-poster {
+            height: 270px;
+        }
+
+        /* Search Tags */
+        .search-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .search-tag {
+            padding: 6px 16px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-decoration: none;
+        }
+
+        .search-tag:hover {
+            background: rgba(229, 9, 20, 0.15);
+            color: var(--accent-secondary);
+            border-color: rgba(229, 9, 20, 0.3);
+        }
+
+        /* Empty State */
+        .search-empty {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .search-empty-icon {
+            font-size: 4rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .search-empty-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .search-empty-hint {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .search-page-title {
+                font-size: 1.5rem;
+            }
+
+            .search-page-bar {
+                flex-direction: column;
+            }
+
+            .search-results-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 12px;
+            }
+
+            .search-results-grid .card-poster {
+                height: 210px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .search-results-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 10px;
+            }
+
+            .search-results-grid .card-poster {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar scrolled" id="navbar">
+        <div class="nav-left">
+            <a href="index.html" class="logo" id="logo">
+                <span class="logo-icon">▶</span>
+                <span class="logo-text">GheNhua<span class="logo-accent">Phim</span></span>
+            </a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html" class="nav-link">Trang Chủ</a></li>
+                <li><a href="index.html#section-phim-bo" class="nav-link">Phim Bộ</a></li>
+                <li><a href="index.html#section-phim-le" class="nav-link">Phim Lẻ</a></li>
+                <li><a href="index.html#section-hoat-hinh" class="nav-link">Hoạt Hình</a></li>
+                <li><a href="index.html#section-tv-shows" class="nav-link">TV Shows</a></li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <div class="search-container active" id="search-container">
+                <button class="search-btn" id="search-toggle" aria-label="Tìm kiếm">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <input type="text" class="search-input" id="nav-search-input" placeholder="Tìm kiếm phim...">
+            </div>
+        </div>
+    </nav>
+
+<section class="search-page-hero" id="search-hero">
+        <h1 class="search-page-title" id="search-title">🔍 Tìm kiếm phim</h1>
+        <p class="search-page-subtitle" id="search-subtitle">Tìm kiếm trong hơn 30,000 bộ phim</p>
+        <form class="search-page-bar" id="search-form">
+            <input type="text" class="search-page-input" id="search-page-input"
+                placeholder="Nhập tên phim, diễn viên..." autocomplete="off" minlength="2">
+            <button type="submit" class="search-page-submit">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                Tìm kiếm
+            </button>
+        </form>
+        <div class="search-tags" id="search-tags">
+            <a class="search-tag" href="search.html?keyword=avengers">Avengers</a>
+            <a class="search-tag" href="search.html?keyword=one piece">One Piece</a>
+            <a class="search-tag" href="search.html?keyword=batman">Batman</a>
+            <a class="search-tag" href="search.html?keyword=hàn quốc">Phim Hàn</a>
+            <a class="search-tag" href="search.html?keyword=trung quốc">Phim Trung</a>
+            <a class="search-tag" href="search.html?keyword=kinh dị">Kinh Dị</a>
+            <a class="search-tag" href="search.html?keyword=hành động">Hành Động</a>
+            <a class="search-tag" href="search.html?keyword=tình cảm">Tình Cảm</a>
+        </div>
+    </section>
+
+<section class="search-results" id="search-results">
+        <div class="search-results-header">
+            <h2 class="search-results-title" id="results-title"></h2>
+        </div>
+        <div class="search-results-grid" id="results-grid"></div>
+        <div class="pagination" id="results-pagination"></div>
+    </section>
+
+<div class="modal-overlay" id="modal-overlay">
+        <div class="modal" id="movie-modal">
+            <button class="modal-close" id="modal-close" aria-label="Đóng">✕</button>
+            <div class="modal-backdrop" id="modal-backdrop"></div>
+            <div class="modal-body">
+                <div class="modal-badges" id="modal-badges"></div>
+                <h2 class="modal-title" id="modal-title"></h2>
+                <p class="modal-origin" id="modal-origin"></p>
+                <div class="modal-meta" id="modal-meta"></div>
+                <div class="modal-categories" id="modal-categories"></div>
+                <div class="modal-countries" id="modal-countries"></div>
+                <div class="modal-actions">
+                    <button class="btn btn-play" id="modal-play-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        Xem Phim
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span class="logo-icon">▶</span>
+                <span class="logo-text">GheNhua<span class="logo-accent">Phim</span></span>
+            </div>
+            <p class="footer-text">Xem phim online miễn phí chất lượng cao. Cập nhật phim mới nhanh nhất.</p>
+            <div class="footer-links">
+                <a href="index.html">Trang Chủ</a>
+                <a href="index.html#section-phim-bo">Phim Bộ</a>
+                <a href="index.html#section-phim-le">Phim Lẻ</a>
+                <a href="index.html#section-hoat-hinh">Hoạt Hình</a>
+            </div>
+            <p class="footer-copy">© 2026 GheNhuaPhim. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="search.js"></script>
+</body>
+
+</html>

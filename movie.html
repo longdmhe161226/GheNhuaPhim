@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đang tải... - GheNhuaPhim</title>
+    <meta name="description" content="Xem phim online chất lượng cao miễn phí.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="movie.css">
+</head>
+
+<body>
+
+<nav class="navbar scrolled" id="navbar">
+        <div class="nav-left">
+            <a href="index.html" class="logo" id="logo">
+                <span class="logo-icon">▶</span>
+                <span class="logo-text">GheNhua<span class="logo-accent">Phim</span></span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Trang Chủ</a></li>
+                <li><a href="index.html#section-phim-bo" class="nav-link">Phim Bộ</a></li>
+                <li><a href="index.html#section-phim-le" class="nav-link">Phim Lẻ</a></li>
+                <li><a href="index.html#section-hoat-hinh" class="nav-link">Hoạt Hình</a></li>
+                <li><a href="index.html#section-tv-shows" class="nav-link">TV Shows</a></li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <div class="search-container" id="search-container">
+                <button class="search-btn" id="search-toggle" aria-label="Tìm kiếm">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <input type="text" class="search-input" id="search-input" placeholder="Tìm kiếm phim..."
+                    autocomplete="off">
+            </div>
+        </div>
+    </nav>
+
+<main class="movie-page" id="movie-page">
+
+<div class="movie-loading" id="movie-loading">
+            <div class="loader">
+                <div class="loader-ring"></div>
+                <span class="loader-text">Đang tải phim...</span>
+            </div>
+        </div>
+
+<div class="movie-error" id="movie-error" style="display:none;">
+            <span class="movie-error-icon">😕</span>
+            <h2 class="movie-error-title">Không tìm thấy phim</h2>
+            <p class="movie-error-text">Phim bạn tìm kiếm không tồn tại hoặc đã bị xóa.</p>
+            <a href="index.html" class="btn btn-play">← Về Trang Chủ</a>
+        </div>
+
+<div class="movie-content" id="movie-content" style="display:none;">
+
+<div class="movie-backdrop" id="movie-backdrop"></div>
+            <div class="movie-backdrop-gradient"></div>
+
+<section class="player-section" id="player-section">
+                <div class="player-container" id="player-container">
+                    <div class="player-placeholder" id="player-placeholder">
+                        <div class="player-placeholder-inner">
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="white" opacity="0.8">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                            <p>Chọn tập để xem phim</p>
+                        </div>
+                    </div>
+                    <iframe id="player-iframe" allowfullscreen allow="autoplay; encrypted-media"
+                        style="display:none;"></iframe>
+                </div>
+            </section>
+
+<section class="episodes-section" id="episodes-section">
+                <div class="episodes-wrapper">
+                    
+                    <div class="server-tabs" id="server-tabs"></div>
+                    
+                    <div class="episode-grid" id="episode-grid"></div>
+                </div>
+            </section>
+
+<section class="movie-info-section">
+                <div class="movie-info-layout">
+
+<div class="movie-poster-wrap">
+                        <img class="movie-poster" id="movie-poster" alt="" loading="lazy">
+                        <div class="movie-poster-badges" id="movie-poster-badges"></div>
+                    </div>
+
+<div class="movie-details">
+                        <h1 class="movie-title" id="movie-title"></h1>
+                        <p class="movie-origin-name" id="movie-origin-name"></p>
+
+<div class="movie-ratings" id="movie-ratings"></div>
+
+<div class="movie-meta-grid" id="movie-meta-grid"></div>
+
+<div class="movie-tags" id="movie-categories"></div>
+
+<div class="movie-tags" id="movie-countries"></div>
+
+<div class="movie-people" id="movie-actors"></div>
+
+<div class="movie-people" id="movie-directors"></div>
+
+<div class="movie-description" id="movie-description"></div>
+
+<div class="movie-trailer" id="movie-trailer"></div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+<footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span class="logo-icon">▶</span>
+                <span class="logo-text">GheNhua<span class="logo-accent">Phim</span></span>
+            </div>
+            <p class="footer-text">Xem phim online miễn phí chất lượng cao. Cập nhật phim mới nhanh nhất.</p>
+            <div class="footer-links">
+                <a href="index.html">Trang Chủ</a>
+                <a href="index.html#section-phim-bo">Phim Bộ</a>
+                <a href="index.html#section-phim-le">Phim Lẻ</a>
+                <a href="index.html#section-hoat-hinh">Hoạt Hình</a>
+            </div>
+            <p class="footer-copy">© 2026 GheNhuaPhim. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="movie.js"></script>
+</body>
+
+</html>

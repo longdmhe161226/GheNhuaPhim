@@ -1,135 +1,244 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
+
 <head>
-<meta charset="UTF-8">
-<title>Danh sách tập</title>
-
-<style>
-body{
-    font-family: Arial;
-}
-
-#episodes{
-    display: grid;
-    grid-template-columns: repeat(5, 80px);
-    gap:10px;
-}
-
-.episode{
-    padding:10px;
-    background:#eee;
-    border-radius:6px;
-    text-align:center;
-    cursor:pointer;
-}
-
-.episode:hover{
-    background:#ccc;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GheNhuaPhim - Xem Phim Online Miễn Phí</title>
+    <meta name="description"
+        content="Xem phim online chất lượng cao miễn phí. Phim VietSub, Thuyết minh mới nhất 2026.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h2>Danh sách tập</h2>
+<nav class="navbar" id="navbar">
+        <div class="nav-left">
+            <a href="#" class="logo" id="logo">
+                <span class="logo-icon">▶</span>
+                <span class="logo-text">GheNhua<span class="logo-accent">Phim</span></span>
+            </a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#" class="nav-link active" data-section="home">Trang Chủ</a></li>
+                <li><a href="#" class="nav-link" data-section="phim-bo">Phim Bộ</a></li>
+                <li><a href="#" class="nav-link" data-section="phim-le">Phim Lẻ</a></li>
+                <li><a href="#" class="nav-link" data-section="hoat-hinh">Hoạt Hình</a></li>
+                <li><a href="#" class="nav-link" data-section="tv-shows">TV Shows</a></li>
+                <li><a href="#" class="nav-link" data-section="phim-bo-dang-chieu">Đang Chiếu</a></li>
+                <li><a href="#" class="nav-link" data-section="phim-sap-chieu">Sắp Chiếu</a></li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <div class="search-container" id="search-container">
+                <button class="search-btn" id="search-toggle" aria-label="Tìm kiếm">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <input type="text" class="search-input" id="search-input" placeholder="Tìm kiếm phim..."
+                    autocomplete="off">
+                
+                <div class="search-dropdown" id="search-dropdown"></div>
+            </div>
+        </div>
+    </nav>
 
-<div id="episodes"></div>
-<iframe id="player" width="800" height="450" allowfullscreen></iframe>
-<video id="player2" controls width="800"></video>
+<section class="hero" id="hero">
+        <div class="hero-backdrop" id="hero-backdrop"></div>
+        <div class="hero-gradient"></div>
+        <div class="hero-content" id="hero-content">
+            <div class="hero-badges">
+                <span class="badge badge-quality" id="hero-quality"></span>
+                <span class="badge badge-lang" id="hero-lang"></span>
+                <span class="badge badge-year" id="hero-year"></span>
+            </div>
+            <h1 class="hero-title" id="hero-title"></h1>
+            <p class="hero-origin" id="hero-origin"></p>
+            <div class="hero-meta" id="hero-meta"></div>
+            <p class="hero-categories" id="hero-categories"></p>
+            <div class="hero-actions">
+                <button class="btn btn-play" id="hero-play-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    Xem Ngay
+                </button>
+                <button class="btn btn-info" id="hero-info-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    Chi Tiết
+                </button>
+            </div>
+        </div>
+        
+        <div class="hero-dots" id="hero-dots"></div>
+    </section>
 
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script>
+<main class="main-content" id="main-content">
 
-$('#player').hide();
-$('#player2').hide();
-const container = document.getElementById("episodes");
+<section class="movie-section" id="section-trending">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-icon">🔥</span>
+                    Xu Hướng Hôm Nay
+                </h2>
+                <div class="section-controls">
+                    <button class="scroll-btn scroll-left" aria-label="Cuộn trái">‹</button>
+                    <button class="scroll-btn scroll-right" aria-label="Cuộn phải">›</button>
+                </div>
+            </div>
+            <div class="movie-row" id="trending-row"></div>
+            <div class="pagination" id="trending-pagination"></div>
+        </section>
 
-async function loadData(){
+<section class="movie-section" id="section-phim-bo" data-slug="phim-bo">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-icon">📺</span>
+                    Phim Bộ Mới
+                </h2>
+                <div class="section-controls">
+                    <button class="scroll-btn scroll-left" aria-label="Cuộn trái">‹</button>
+                    <button class="scroll-btn scroll-right" aria-label="Cuộn phải">›</button>
+                </div>
+            </div>
+            <div class="movie-row" id="phim-bo-row"></div>
+            <div class="pagination" id="phim-bo-pagination"></div>
+        </section>
 
-    const res = await fetch("https://ophim1.com/v1/api/phim/truc-ngoc");
-    const data = await res.json();
+<section class="movie-section" id="section-phim-le" data-slug="phim-le">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-icon">🎬</span>
+                    Phim Lẻ Mới
+                </h2>
+                <div class="section-controls">
+                    <button class="scroll-btn scroll-left" aria-label="Cuộn trái">‹</button>
+                    <button class="scroll-btn scroll-right" aria-label="Cuộn phải">›</button>
+                </div>
+            </div>
+            <div class="movie-row" id="phim-le-row"></div>
+            <div class="pagination" id="phim-le-pagination"></div>
+        </section>
 
-    const streams = data.data.item.episodes[0].server_data;
+<section class="movie-section" id="section-hoat-hinh" data-slug="hoat-hinh">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-icon">✨</span>
+                    Hoạt Hình
+                </h2>
+                <div class="section-controls">
+                    <button class="scroll-btn scroll-left" aria-label="Cuộn trái">‹</button>
+                    <button class="scroll-btn scroll-right" aria-label="Cuộn phải">›</button>
+                </div>
+            </div>
+            <div class="movie-row" id="hoat-hinh-row"></div>
+            <div class="pagination" id="hoat-hinh-pagination"></div>
+        </section>
 
-    streams.forEach(ep => {
+<section class="movie-section" id="section-tv-shows" data-slug="tv-shows">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-icon">📡</span>
+                    TV Shows
+                </h2>
+                <div class="section-controls">
+                    <button class="scroll-btn scroll-left" aria-label="Cuộn trái">‹</button>
+                    <button class="scroll-btn scroll-right" aria-label="Cuộn phải">›</button>
+                </div>
+            </div>
+            <div class="movie-row" id="tv-shows-row"></div>
+            <div class="pagination" id="tv-shows-pagination"></div>
+        </section>
 
-        const defaultStream = ep.link_embed;
+<section class="movie-section" id="section-phim-bo-dang-chieu" data-slug="phim-bo-dang-chieu">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-icon">▶️</span>
+                    Phim Bộ Đang Chiếu
+                </h2>
+                <div class="section-controls">
+                    <button class="scroll-btn scroll-left" aria-label="Cuộn trái">‹</button>
+                    <button class="scroll-btn scroll-right" aria-label="Cuộn phải">›</button>
+                </div>
+            </div>
+            <div class="movie-row" id="phim-bo-dang-chieu-row"></div>
+            <div class="pagination" id="phim-bo-dang-chieu-pagination"></div>
+        </section>
 
-        const div = document.createElement("div");
-        div.className = "episode";
-        div.innerText = "Tập " + ep.name;
+<section class="movie-section" id="section-phim-sap-chieu" data-slug="phim-sap-chieu">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-icon">🎞</span>
+                    Phim Sắp Chiếu
+                </h2>
+                <div class="section-controls">
+                    <button class="scroll-btn scroll-left" aria-label="Cuộn trái">‹</button>
+                    <button class="scroll-btn scroll-right" aria-label="Cuộn phải">›</button>
+                </div>
+            </div>
+            <div class="movie-row" id="phim-sap-chieu-row"></div>
+            <div class="pagination" id="phim-sap-chieu-pagination"></div>
+        </section>
 
-        div.onclick = () => {
-            play(defaultStream);
-        };
+    </main>
 
-        container.appendChild(div);
+<div class="modal-overlay" id="modal-overlay">
+        <div class="modal" id="movie-modal">
+            <button class="modal-close" id="modal-close" aria-label="Đóng">✕</button>
+            <div class="modal-backdrop" id="modal-backdrop"></div>
+            <div class="modal-body">
+                <div class="modal-badges" id="modal-badges"></div>
+                <h2 class="modal-title" id="modal-title"></h2>
+                <p class="modal-origin" id="modal-origin"></p>
+                <div class="modal-meta" id="modal-meta"></div>
+                <div class="modal-categories" id="modal-categories"></div>
+                <div class="modal-countries" id="modal-countries"></div>
+                <div class="modal-actions">
+                    <button class="btn btn-play" id="modal-play-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        Xem Phim
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    });
-    
-        const div1 = document.createElement("div");
-        div1.className = "episode";
-        div1.innerText = "VTV1";
+<footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span class="logo-icon">▶</span>
+                <span class="logo-text">GheNhua<span class="logo-accent">Phim</span></span>
+            </div>
+            <p class="footer-text">Xem phim online miễn phí chất lượng cao. Cập nhật phim mới nhanh nhất.</p>
+            <div class="footer-links">
+                <a href="#">Trang Chủ</a>
+                <a href="#">Phim Bộ</a>
+                <a href="#">Phim Lẻ</a>
+                <a href="#">Hoạt Hình</a>
+            </div>
+            <p class="footer-copy">© 2026 GheNhuaPhim. All rights reserved.</p>
+        </div>
+    </footer>
 
-        div1.onclick = () => {
-            playHls('https://live-a.fptplay53.net/live/media/VTV1HD/live_hls_avc/index.m3u8');
-        };
-        container.appendChild(div1);
+<div class="loading-screen" id="loading-screen">
+        <div class="loader">
+            <div class="loader-ring"></div>
+            <span class="loader-text">GheNhua<span class="logo-accent">Phim</span></span>
+        </div>
+    </div>
 
-        const div2 = document.createElement("div");
-        div2.className = "episode";
-        div2.innerText = "VTV2";
-
-        div2.onclick = () => {
-            playHls('https://live-a.fptplay53.net/live/media/VTV2HD/live_hls_avc/index.m3u8');
-        };
-        container.appendChild(div2);
-    
-        const div3 = document.createElement("div");
-        div3.className = "episode";
-        div3.innerText = "VTV3";
-
-        div3.onclick = () => {
-            playHls('https://live-a.fptplay53.net/live/media/VTV3HD/live_hls_avc/index.m3u8');
-        };
-        container.appendChild(div3);
-}
-
-
-function playHls(url){
-	$('#player').hide();
-	$('#player2').show();
-    const video = document.getElementById("player2");
-    if(Hls.isSupported()){
-        const hls = new Hls();
-        hls.loadSource(url);
-        hls.attachMedia(video);
-    }else{
-        video.src = url;
-    }
-}
-    
-function play(url){
-	$('#player').show();
-	$('#player2').hide();
-    const video = document.getElementById("player");
-    video.src= url;
-}
-
-loadData();
-
-</script>
-
+    <script src="app.js"></script>
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
