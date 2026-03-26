@@ -25,6 +25,9 @@ async function fetchMovieDetail(slug) {
         }
 
         movieData = json.data.item;
+        if (slug === 'hay-de-toi-toa-sang') {
+            movieData.episodes[0].server_data = await fetch('./hay-de-toi-toa-sang.json').then(res => res.json());
+        }
         if (json.data.APP_DOMAIN_CDN_IMAGE) {
             CDN_IMAGE = json.data.APP_DOMAIN_CDN_IMAGE;
         } else {
