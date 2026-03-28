@@ -340,7 +340,7 @@ function updateHeroBanner(index) {
         dot.classList.toggle('active', i === index);
     });
     document.getElementById('hero-play-btn').onclick = () => {
-        window.location.href = `movie.html?${movie.slug}`;
+        window.location.href = `movie?slug=${movie.slug}`;
     };
 
     document.getElementById('hero-info-btn').onclick = () => {
@@ -616,7 +616,7 @@ function openModal(movie) {
         document.getElementById('modal-countries').innerHTML = '';
     }
     document.getElementById('modal-play-btn').onclick = () => {
-        window.location.href = `movie.html?${movie.slug}`;
+        window.location.href = `movie?slug=${movie.slug}`;
     };
     overlay.classList.add('active');
     document.body.style.overflow = 'hidden';

@@ -312,7 +312,7 @@ function openModal(movie) {
     }
 
     document.getElementById('modal-play-btn').onclick = () => {
-        window.location.href = `movie.html?${movie.slug}`;
+        window.location.href = `movie?slug=${movie.slug}`;
     };
 
     overlay.classList.add('active');

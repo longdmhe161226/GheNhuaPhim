@@ -4,7 +4,8 @@ let movieData = null;
 let currentServer = 0;
 let currentEpisode = null;
 document.addEventListener('DOMContentLoaded', () => {
-    const slug = window.location.search.substring(1);
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get('slug');
 
     if (!slug) {
         showError();
