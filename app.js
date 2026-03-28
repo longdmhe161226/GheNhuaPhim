@@ -162,7 +162,7 @@ function initSearch() {
                 const query = input.value.trim();
                 if (query.length >= 2) {
                     hideDropdown();
-                    window.location.href = `search.html?keyword=${encodeURIComponent(query)}`;
+                    window.location.href = `search?keyword=${encodeURIComponent(query)}`;
                 }
             }
         } else if (e.key === 'Escape') {
